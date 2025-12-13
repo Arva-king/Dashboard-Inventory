@@ -1,4 +1,4 @@
-````markdown
+
 # 🛒 TokoMajoo - Modern POS & Inventory System
 
 **TokoMajoo** adalah aplikasi web berbasis *Client-Side* (Tanpa Backend) yang dirancang untuk membantu UMKM mengelola stok barang dan kasir (Point of Sale) dengan fitur-fitur canggih layaknya aplikasi enterprise.
