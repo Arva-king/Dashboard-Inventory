@@ -90,9 +90,7 @@ Karena aplikasi ini berbasis web statis, kamu tidak perlu menginstall PHP, Pytho
 ├── history.html     # Log Aktivitas & Riwayat Transaksi
 ├── profile.html     # Profil, Backup & Restore Data
 ├── help.html        # Bantuan & FAQ
-│
 ├── style.css    # Styling Custom & Dark Mode
-│
 └── script.js    # Logika Utama Aplikasi
 ````
 -----
