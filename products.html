@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Produk - TokoMajoo</title>
+    <title>Produk - TokoMajoo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
             <a class="navbar-brand" href="index.html">TokoMajoo</a>
@@ -17,46 +17,61 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="index.html">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="products.html">Data Produk</a></li>
-                    <li class="nav-item"><a class="nav-link" href="add-item.html">Tambah Barang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pos.html">Kasir</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="products.html">Produk</a></li>
+                    <li class="nav-item"><a class="nav-link" href="add-item.html">Tambah</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">Riwayat</a></li>
                     <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
                     <li class="nav-item"><a class="nav-link" href="help.html">Bantuan</a></li>
+                    <li class="nav-item ms-2"><button class="btn btn-sm btn-outline-light" onclick="toggleDarkMode()">🌙 Mode</button></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        <h2 class="mb-4">Daftar Inventaris Produk</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Daftar Inventaris</h2>
+            <a href="add-item.html" class="btn btn-primary">+ Tambah Barang</a>
+        </div>
         <div class="card shadow-sm p-3">
-            <table id="productTable" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nama Barang</th>
-                        <th>Kategori</th>
-                        <th>Stok</th>
-                        <th>Harga</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Laptop Asus</td><td>Elektronik</td><td>10</td><td>Rp 7.000.000</td><td><button class="btn btn-sm btn-danger btn-delete">Hapus</button></td></tr>
-                    <tr><td>2</td><td>Mouse Logitech</td><td>Aksesoris</td><td>50</td><td>Rp 150.000</td><td><button class="btn btn-sm btn-danger btn-delete">Hapus</button></td></tr>
-                    <tr><td>3</td><td>Keyboard Mechanical</td><td>Aksesoris</td><td>25</td><td>Rp 500.000</td><td><button class="btn btn-sm btn-danger btn-delete">Hapus</button></td></tr>
-                    <tr><td>4</td><td>Monitor LG 24"</td><td>Elektronik</td><td>15</td><td>Rp 2.000.000</td><td><button class="btn btn-sm btn-danger btn-delete">Hapus</button></td></tr>
-                    <tr><td>5</td><td>Meja Kantor</td><td>Furniture</td><td>5</td><td>Rp 1.200.000</td><td><button class="btn btn-sm btn-danger btn-delete">Hapus</button></td></tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="productTable" class="table table-striped w-100">
+                    <thead><tr><th>ID</th><th>Gambar</th><th>Nama Barang</th><th>Kategori</th><th>Stok</th><th>Harga</th><th>Aksi</th></tr></thead>
+                    <tbody id="productTableBody"></tbody>
+                </table>
+            </div>
         </div>
     </div>
+
+    <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white"><h5 class="modal-title">🔒 Login TokoMajoo</h5></div>
+                <div class="modal-body">
+                    <div class="mb-3"><label>Peran:</label><select id="userRole" class="form-select"><option value="admin">Owner / Admin</option><option value="cashier">Kasir / Karyawan</option></select></div>
+                    <div class="mb-3"><label>PIN Akses:</label><input type="password" id="userPin" class="form-control" placeholder="Admin: 1234, Kasir: 0000"></div>
+                    <button class="btn btn-primary w-100" onclick="performLogin()">Masuk Sistem</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="lockScreen" class="hidden"><img src="https://via.placeholder.com/150" class="lock-avatar"><h3>Terkunci</h3><p>PIN (1234)</p><div class="d-flex gap-2"><input type="password" id="unlockPin" class="form-control text-center" style="width:150px;font-size:24px;" maxlength="4"><button class="btn btn-primary" onclick="unlockSystem()">Buka</button></div></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
 </body>

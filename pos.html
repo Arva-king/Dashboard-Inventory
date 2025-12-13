@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasir - TokoMajoo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">TokoMajoo POS</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="pos.html">Kasir</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Produk</a></li>
+                    <li class="nav-item"><a class="nav-link" href="add-item.html">Tambah</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">Riwayat</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Bantuan</a></li>
+                    <li class="nav-item ms-2"><button class="btn btn-sm btn-outline-light" onclick="toggleDarkMode()">🌙 Mode</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid" id="posArea">
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="mb-0">Katalog Produk</h5>
+                            <button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#scanModal">📷 Scan Barcode</button>
+                        </div>
+                        <input type="text" id="searchPos" class="form-control" placeholder="🔍 Cari nama barang atau ID...">
+                    </div>
+                    <div class="card-body bg-light" style="overflow-y: auto; height: 75vh;">
+                        <div class="row" id="posProductGrid"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card shadow border-primary h-100">
+                    <div class="card-header bg-primary text-white"><h5 class="mb-0">Keranjang Belanja</h5></div>
+                    <div class="card-body p-0" style="overflow-y: auto; height: 60vh;">
+                        <table class="table table-striped table-hover mb-0"><thead class="table-light sticky-top"><tr><th>Item</th><th width="15%">Qty</th><th class="text-end">Subtotal</th><th></th></tr></thead><tbody id="cartTableBody"></tbody></table>
+                    </div>
+                    <div class="card-footer bg-white border-top">
+                        <div class="d-flex justify-content-between mb-2"><span>Subtotal:</span><span class="fw-bold" id="cartSubtotal">Rp 0</span></div>
+                        <div class="d-flex justify-content-between mb-3 text-success"><span>Ongkir (<span id="distanceValue">0</span> km):</span><span class="fw-bold" id="shippingCost">Rp 0</span></div>
+                        <div class="d-flex justify-content-between mb-3 border-top pt-2"><h4>Total:</h4><h4 class="text-primary fw-bold" id="cartTotal">Rp 0</h4></div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" onclick="openMapModal()">🗺️ Cek Ongkir (Peta)</button>
+                            <button class="btn btn-success btn-lg" onclick="processCheckout()"><i class="bi bi-cart-check"></i> BAYAR SEKARANG</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="scanModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Scan Barcode</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div id="reader"></div></div></div></div></div>
+    <div class="modal fade" id="mapModal" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Pilih Lokasi Pengiriman</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div id="map"></div></div><div class="modal-footer"><button type="button" class="btn btn-primary" data-bs-dismiss="modal">Gunakan Lokasi Ini</button></div></div></div></div>
+    
+    <div id="lockScreen" class="hidden"><img src="https://via.placeholder.com/150" class="lock-avatar"><h3>Terkunci</h3><p>PIN (1234)</p><div class="d-flex gap-2"><input type="password" id="unlockPin" class="form-control text-center" style="width:150px;font-size:24px;" maxlength="4"><button class="btn btn-primary" onclick="unlockSystem()">Buka</button></div></div>
+
+    <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white"><h5 class="modal-title">🔒 Login TokoMajoo</h5></div>
+                <div class="modal-body">
+                    <div class="mb-3"><label>Peran:</label><select id="userRole" class="form-select"><option value="admin">Owner / Admin</option><option value="cashier">Kasir / Karyawan</option></select></div>
+                    <div class="mb-3"><label>PIN Akses:</label><input type="password" id="userPin" class="form-control" placeholder="Admin: 1234, Kasir: 0000"></div>
+                    <button class="btn btn-primary w-100" onclick="performLogin()">Masuk Sistem</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
