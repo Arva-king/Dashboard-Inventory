@@ -66,7 +66,6 @@ Karena aplikasi ini berbasis web statis, kamu tidak perlu menginstall PHP, Pytho
 1. **Clone Repositori ini**
    ```bash
    git clone https://github.com/Arva-king/Dashboard-Inventory/
-``
 
 2.  **Buka Folder Proyek**
     Masuk ke folder hasil download.
