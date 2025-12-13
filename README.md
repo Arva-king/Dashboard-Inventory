@@ -91,11 +91,9 @@ Karena aplikasi ini berbasis web statis, kamu tidak perlu menginstall PHP, Pytho
 ├── profile.html     # Profil, Backup & Restore Data
 ├── help.html        # Bantuan & FAQ
 │
-├── css/
-│   └── style.css    # Styling Custom & Dark Mode
+├── style.css    # Styling Custom & Dark Mode
 │
-└── js/
-    └── script.js    # Logika Utama Aplikasi
+└── script.js    # Logika Utama Aplikasi
 ````
 -----
 
