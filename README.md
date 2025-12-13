@@ -107,12 +107,3 @@ Karena aplikasi ini berbasis web statis, kamu tidak perlu menginstall PHP, Pytho
 Pull Request dipersilakan\! Untuk perubahan besar, harap buka *issue* terlebih dahulu untuk mendiskusikan apa yang ingin kamu ubah.
 
 -----
-
-**Dibuat dengan ❤️ untuk UMKM Indonesia.**
-
-
-
-### Tips Tambahan untuk GitHub Kamu:
-1.  **Screenshot:** Agar repository kamu terlihat makin keren, ambil *screenshot* halaman Dashboard, Kasir, dan Mode Gelap, lalu upload ke folder `img` (buat folder baru) dan masukkan ke dalam README di atas.
-2.  **Hosting Gratis:** Kamu bisa langsung menghosting web ini secara gratis menggunakan **GitHub Pages** atau **Netlify** (tinggal drag & drop folder projectnya). Fitur kamera & lokasi akan berjalan lebih lancar di sana karena sudah otomatis HTTPS.
-
