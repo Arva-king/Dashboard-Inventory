@@ -1,100 +1,387 @@
-/* style.css - TokoMajoo Ultimate Edition */
-body {
-    background-color: #f8f9fa;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: background-color 0.3s, color 0.3s;
-    position: relative;
-    min-height: 100vh;
+/* style.css - TokoMajoo Ultimate Modern Edition */
+
+/* IMPORT FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Tema Warna */
+:root {
+    --primary-color: #4361ee;
+    --primary-gradient: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+    --secondary-color: #3f37c9;
+    --bg-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --text-main: #2b2d42;
+    --text-muted: #8d99ae;
+    --border-radius: 16px;
+    --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Navbar & Cards */
-.navbar { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-.card { border: none; border-radius: 10px; transition: transform 0.2s, background-color 0.3s; }
-.card:hover { transform: translateY(-3px); }
+/* BASE STYLES */
+body {
+    background-color: var(--bg-color);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-main);
+    transition: all 0.3s ease;
+    min-height: 100vh;
+    padding-bottom: 80px; /* Space for voice btn */
+}
 
-/* Utilities */
-.cursor-pointer { cursor: pointer; }
-.img-preview-table { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; }
-.hidden { display: none !important; }
+/* NAVBAR */
+.navbar {
+    background: var(--primary-gradient) !important;
+    box-shadow: 0 4px 20px rgba(67, 97, 238, 0.3);
+    padding: 1rem 0;
+    margin-bottom: 2rem !important; /* Override inline style */
+}
 
-/* --- DARK MODE --- */
-body.dark-mode { background-color: #121212; color: #e0e0e0; }
-body.dark-mode .navbar { background-color: #1f1f1f !important; }
-body.dark-mode .card { background-color: #1e1e1e; color: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-body.dark-mode .form-control, body.dark-mode .form-select { background-color: #2c2c2c; border-color: #444; color: #fff; }
-body.dark-mode .table { color: #fff; --bs-table-bg: #1e1e1e; --bs-table-striped-bg: #2c2c2c; border-color: #444; }
-body.dark-mode .modal-content { background-color: #1e1e1e; color: #fff; }
-body.dark-mode .text-muted { color: #aaa !important; }
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 1.5rem;
+}
 
-/* --- FITUR KHUSUS --- */
-.low-stock { background-color: #ffebee !important; }
-body.dark-mode .low-stock { background-color: #4a0000 !important; }
+.nav-link {
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
 
-/* Voice Button */
+.nav-link:hover {
+    opacity: 0.8;
+}
+
+.nav-link.active {
+    font-weight: 700;
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+}
+
+/* CARDS */
+.card {
+    background-color: var(--card-bg);
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* For header images */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-weight: 600;
+    padding: 1.25rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Override specific Backgrounds in HTML */
+.bg-primary {
+    background: var(--primary-gradient) !important;
+}
+
+/* BUTTONS */
+.btn {
+    border-radius: 50px; 
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #3f37c9 0%, #4361ee 100%);
+    box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* FORMS & INPUTS */
+.form-control, .form-select {
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+    background-color: #f8fafc;
+    transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+}
+
+/* POS GRID & PRODUCTS */
+
+#posProductGrid .card {
+    padding: 10px;
+    border: 1px solid transparent;
+}
+
+#posProductGrid img, 
+#posProductGrid .card-img-top {
+    width: 100%;
+    height: 140px;            /* Tinggi tetap agar kotak rapi */
+    object-fit: contain !important; /* WAJIB: Memaksa gambar tampil UTUH */
+    background-color: #fff;   /* Background putih di belakang gambar */
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Biar background gambar ikut gelap saat mode malam (opsional) */
+body.dark-mode #posProductGrid img,
+body.dark-mode #posProductGrid .card-img-top {
+    background-color: #334155;
+    border-color: #475569;
+}
+
+
+/* #posProductGrid .card {
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: 12px;
+    transition: all 0.2s;
+}
+
+#posProductGrid .card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+#posProductGrid img {
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    transition: transform 0.5s;
+    border-radius: 12px;       
+    height: 125px;             
+    object-fit: cover;
+    width: 100%;
+    margin-bottom: 12px;       
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+#posProductGrid .card:hover img {
+    transform: scale(1.05);
+} */
+
+/* Keranjang Belanja */
+.table thead th {
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* MODALS */
+.modal-content {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.modal-header {
+    background: var(--primary-gradient);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-backdrop.show {
+    opacity: 0.7;
+    backdrop-filter: blur(5px); /* Modern blur effect */
+}
+
+/*VOICE BUTTON*/
 .voice-btn {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    background-color: #0d6efd;
+    background: var(--primary-gradient);
     color: white;
     border: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
     z-index: 1050;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    transition: transform 0.2s;
-}
-.voice-btn:hover { transform: scale(1.1); background-color: #0b5ed7; }
-.voice-btn.listening { background-color: #dc3545; animation: pulse 1.5s infinite; }
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(220, 53, 69, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+    font-size: 28px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Scanner & Map */
-#reader { width: 100%; border-radius: 8px; overflow: hidden; }
-#map { height: 400px; width: 100%; border-radius: 8px; border: 2px solid #ddd; }
+.voice-btn:hover {
+    transform: scale(1.1) rotate(15deg);
+}
 
-/* --- AUTO LOCK SCREEN --- */
+.voice-btn.listening {
+    background: linear-gradient(135deg, #ef233c 0%, #d90429 100%);
+    animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 35, 60, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(239, 35, 60, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 35, 60, 0); }
+}
+
+/* LOCK SCREEN */
 #lockScreen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(15px);
+    background: rgba(20, 20, 30, 0.85); 
+    backdrop-filter: blur(20px); 
     z-index: 9999;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
-    transition: opacity 0.3s;
+    transition: opacity 0.4s ease-in-out;
 }
 
 #lockScreen.hidden {
     display: none;
     opacity: 0;
+    pointer-events: none;
 }
 
 .lock-avatar {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 3px solid #0d6efd;
-    margin-bottom: 20px;
+    border: 4px solid var(--primary-color);
+    margin-bottom: 25px;
     object-fit: cover;
+    box-shadow: 0 0 30px rgba(67, 97, 238, 0.5);
+    animation: float 6s ease-in-out infinite;
 }
 
-/* --- THERMAL PRINTER (58mm) --- */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* UTILITIES & DARK MODE OVERRIDES */
+.cursor-pointer { cursor: pointer; }
+.img-preview-table { 
+    width: 48px; 
+    height: 48px; 
+    object-fit: cover; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.hidden { display: none !important; }
+
+/* DataTables Modernization */
+.dataTables_wrapper .dataTables_filter input {
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: 1px solid #ddd;
+}
+.page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 2px;
+}
+.page-link { border: none; color: var(--text-muted); }
+
+/* DARK MODE CONFIGURATION */
+body.dark-mode {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+}
+
+body.dark-mode .navbar {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    border-bottom: 1px solid #334155;
+}
+
+body.dark-mode .card {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .form-control, 
+body.dark-mode .form-select {
+    background-color: #334155;
+    border-color: #475569;
+    color: #fff;
+}
+
+body.dark-mode .form-control:focus {
+    background-color: #1e293b;
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .table {
+    color: var(--text-main);
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(255,255,255,0.03);
+    border-color: #334155;
+}
+
+body.dark-mode .table thead th {
+    background-color: #0f172a;
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+body.dark-mode .modal-content {
+    background-color: #1e293b;
+    color: white;
+}
+
+body.dark-mode .card-header {
+    border-bottom-color: #334155;
+}
+
+body.dark-mode .low-stock {
+    background-color: rgba(220, 38, 38, 0.2) !important; /* Soft Red */
+}
+
+/* Printer Specifics */
 @media print {
     body * { visibility: hidden; }
     #printArea, #printArea * { visibility: visible; }
@@ -109,4 +396,241 @@ body.dark-mode .low-stock { background-color: #4a0000 !important; }
         background: white;
     }
     @page { size: auto; margin: 0mm; }
+}
+
+/* Leaflet Map Fix */
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: var(--border-radius);
+    border: 4px solid white;
+    box-shadow: var(--shadow-soft);
+}
+#reader {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: var(--shadow-soft);
+}
+
+/* Tombol Mode */
+button[onclick="toggleDarkMode()"] {
+    font-size: 0 !important; 
+    position: relative;
+    width: 110px;            
+    height: 38px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Tampilan Default (Saat Light Mode) */
+button[onclick="toggleDarkMode()"]::after {
+    content: "🌙 Gelap";      
+    font-size: 14px;          
+    font-weight: 600;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); 
+    width: 100%;
+    text-align: center;
+}
+
+/* Tampilan Saat Dark Mode Aktif */
+body.dark-mode button[onclick="toggleDarkMode()"]::after {
+    content: "☀️ Terang";     /* BERUBAH jadi Matahari */
+}
+
+/* Styling tombol di Dark Mode */
+body.dark-mode button[onclick="toggleDarkMode()"] {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #fbbf24;
+    color: #fbbf24 !important;
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.3); /* Efek glowing kuning */
+}
+
+/* Efek Hover di Dark Mode */
+body.dark-mode button[onclick="toggleDarkMode()"]:hover {
+    background: #fbbf24;
+    color: #000 !important;
+}
+
+/* Memaksa elemen background putih jadi gelap */
+body.dark-mode .bg-white,
+body.dark-mode .bg-light,
+body.dark-mode .card-header,
+body.dark-mode .card-header.bg-white,
+body.dark-mode .card-footer.bg-white {
+    background-color: var(--card-bg) !important;
+    color: var(--text-main) !important;
+    border-color: #334155 !important;
+}
+
+/* Memaksa font hitam jadi putih */
+body.dark-mode .text-dark,
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, 
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
+body.dark-mode strong, body.dark-mode b,
+body.dark-mode .card-title,
+body.dark-mode label, body.dark-mode span,
+body.dark-mode small {
+    color: #ffffff !important;
+}
+
+/* Tulisan abu-abu (muted) biar lebih terbaca */
+body.dark-mode .text-muted, 
+body.dark-mode p {
+    color: #e2e8f0 !important;
+    opacity: 1 !important;
+}
+
+/* Input form biar tidak putih silau */
+body.dark-mode .form-control, 
+body.dark-mode .form-select {
+    background-color: #334155 !important;
+    border-color: #475569 !important;
+    color: #fff !important;
+}
+
+
+/* Harga produk dibikin neon biar kebaca */
+body.dark-mode .text-primary {
+    color: #60a5fa !important;
+}
+
+/* Biar background gambar ikut gelap saat mode malam */
+body.dark-mode #posProductGrid img,
+body.dark-mode #posProductGrid .card-img-top {
+    background-color: #334155;
+    border-color: #475569;
+}
+
+/* FIX Menu Bantuan */
+body.dark-mode .accordion-item,
+body.dark-mode .accordion-header,
+body.dark-mode .accordion-button {
+    background-color: var(--card-bg) !important;
+    color: #fff !important;
+    border-color: #334155 !important;
+}
+
+/* Warna tombol accordion saat tidak diklik */
+body.dark-mode .accordion-button.collapsed {
+    background-color: var(--card-bg) !important;
+    color: #e2e8f0 !important;
+}
+
+/* Mengubah warna panah accordion jadi putih */
+body.dark-mode .accordion-button::after {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+body.dark-mode .accordion-body {
+    background-color: #1e293b !important; 
+    color: #fff !important;
+}
+
+
+/* FIX Riwayat */
+body.dark-mode table.dataTable tbody tr,
+body.dark-mode table.dataTable tbody td {
+    background-color: transparent !important;
+    color: #fff !important;
+}
+
+/* Memutihkan teks "Show entries", "Search", dan "Pagination" */
+body.dark-mode .dataTables_wrapper,
+body.dark-mode .dataTables_length,
+body.dark-mode .dataTables_filter,
+body.dark-mode .dataTables_info,
+body.dark-mode .dataTables_paginate {
+    color: #fff !important;
+}
+
+body.dark-mode .dataTables_wrapper select,
+body.dark-mode .dataTables_wrapper input {
+    background-color: #334155 !important;
+    border: 1px solid #475569 !important;
+    color: #fff !important;
+}
+
+/* Tombol Previous/Next di tabel */
+body.dark-mode .page-item.disabled .page-link {
+    background-color: #334155 !important;
+    border-color: #475569 !important;
+    color: #94a3b8 !important;
+}
+body.dark-mode .page-link {
+    background-color: #1e293b;
+    border-color: #475569;
+    color: #fff;
+}
+
+#posProductGrid img, 
+#posProductGrid .card-img-top {
+    object-fit: contain !important; 
+    height: 150px !important;       
+    width: 100% !important;
+    background-color: #fff !important; 
+    padding: 8px !important;        
+    border-radius: 12px !important;
+    margin-bottom: 10px !important;
+}
+
+/* Gambar saat Dark Mode */
+body.dark-mode #posProductGrid img, 
+body.dark-mode #posProductGrid .card-img-top {
+    background-color: #334155 !important; 
+    border: 1px solid #475569 !important;
+}
+
+
+/* FIX HALAMAN RIWAYAT (Tabel Gelap) */
+/* Paksa semua teks di dalam tabel riwayat jadi putih */
+body.dark-mode #historyTable tbody td,
+body.dark-mode #historyTable tbody tr {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    border-color: #334155 !important;
+}
+
+/* Perbaiki warna baris ganjil/genap */
+body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: rgba(255, 255, 255, 0.05) !important; /* Transparan putih dikit */
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+/* FIX HALAMAN BANTUAN */
+/* Header Accordion (Pertanyaan) */
+body.dark-mode .accordion-button {
+    background-color: #1e293b !important;
+    color: #ffffff !important; /* Teks putih */
+    box-shadow: none !important;
+}
+
+/* Header saat dibuka */
+body.dark-mode .accordion-button:not(.collapsed) {
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+
+/* Panah ikon accordion dipaksa putih */
+body.dark-mode .accordion-button::after {
+    filter: invert(1) grayscale(100%) brightness(200%) !important;
+    -webkit-filter: invert(1) grayscale(100%) brightness(200%) !important;
+}
+
+/* Isi Accordion (Jawaban) */
+body.dark-mode .accordion-body {
+    background-color: #0f172a !important; /* Background lebih gelap dari header */
+    color: #e2e8f0 !important;             /* Teks putih gading */
+    border-top: 1px solid #334155 !important;
+}
+
+body.dark-mode .accordion-item {
+    border-color: #334155 !important;
+    background: transparent !important;
 }
