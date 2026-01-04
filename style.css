@@ -1,6 +1,6 @@
-/* style.css - TokoMajoo Ultimate: Optimized Edition */
+/* style.css - TokoMajoo Ultimate: Final Optimized Edition */
 
-/* IMPORT & VARIABLES */
+/* 1. IMPORT & VARIABLES */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -15,12 +15,12 @@
     --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* BASE STYLES */
+/* 2. BASE STYLES */
 body {
     background-color: var(--bg-color);
     font-family: 'Poppins', sans-serif;
     color: var(--text-main);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     min-height: 100vh;
     padding-bottom: 80px;
 }
@@ -30,7 +30,7 @@ body {
 .hidden { display: none !important; }
 .img-preview-table { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
-/* COMPONENTS */
+/* 3. COMPONENTS */
 
 /* Navbar */
 .navbar {
@@ -45,16 +45,15 @@ body {
 .nav-link.active { font-weight: 700; border-bottom: 2px solid rgba(255,255,255,0.5); }
 .bg-primary { background: var(--primary-gradient) !important; }
 
-/* Cards */
+/* Cards (Hover dimatikan untuk efisiensi visual) */
 .card {
     background-color: var(--card-bg);
     border: none;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-soft);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
     overflow: hidden;
 }
-.card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
 .card-header { background-color: transparent; border-bottom: 1px solid rgba(0,0,0,0.05); font-weight: 600; padding: 1.25rem; }
 .card-body { padding: 1.5rem; }
 
@@ -73,13 +72,24 @@ body {
     background-color: #fff; border-color: var(--primary-color); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
 }
 
-/* POS Product Grid & Images (Optimized) */
-#posProductGrid .card { padding: 10px; border: 1px solid transparent; }
+/* POS Product Grid (Hover Aktif HANYA Di Sini) */
+#posProductGrid .card { 
+    padding: 10px; 
+    border: 1px solid transparent; 
+    transition: transform 0.2s, box-shadow 0.2s; 
+}
+#posProductGrid .card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Gambar Produk POS (Wajib Contain agar tidak terpotong) */
 #posProductGrid img, 
 #posProductGrid .card-img-top {
     width: 100% !important;
-    height: 150px !important;       /* Tinggi fix agar rapi */
-    object-fit: contain !important; /* Agar gambar tidak terpotong */
+    height: 150px !important;       
+    object-fit: contain !important; 
     background-color: #fff !important;
     padding: 8px !important;
     border-radius: 12px !important;
@@ -101,7 +111,7 @@ body {
 .page-item.active .page-link { background-color: var(--primary-color); border-color: var(--primary-color); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; margin: 0 2px; }
 .page-link { border: none; color: var(--text-muted); }
 
-/* ACCESSORIES (Voice, Lockscreen, Switch) */
+/* 4. ACCESSORIES */
 
 /* Voice Button */
 .voice-btn {
@@ -133,12 +143,17 @@ body {
 }
 @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
+/* FIX ALERT: Paksa Popup SweetAlert muncul DI DEPAN Lock Screen */
+.swal2-container {
+    z-index: 10000 !important;
+}
+
 /* Leaflet & Scanner */
 #map, #reader { border-radius: var(--border-radius); border: 4px solid white; box-shadow: var(--shadow-soft); }
 #map { height: 400px; width: 100%; }
 #reader { overflow: hidden; }
 
-/* Tombol Mode Switch (CSS Hack) */
+/* Tombol Mode Switch (Matahari/Bulan) */
 button[onclick="toggleDarkMode()"] {
     font-size: 0 !important; position: relative; width: 110px; height: 38px;
     display: inline-flex !important; align-items: center; justify-content: center; overflow: hidden;
@@ -148,7 +163,7 @@ button[onclick="toggleDarkMode()"]::after {
     left: 50%; top: 50%; transform: translate(-50%, -50%); width: 100%; text-align: center;
 }
 
-/* DARK MODE CONFIGURATION (Unified) */
+/* 5. DARK MODE CONFIGURATION (Unified & Optimized) */
 body.dark-mode {
     --bg-color: #0f172a;
     --card-bg: #1e293b;
@@ -157,19 +172,36 @@ body.dark-mode {
     --border-color: #334155;
 }
 
-/* Global Overrides (Backgrounds & Text) */
+/* A. Global Theme Overrides */
 body.dark-mode .navbar { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important; border-bottom: 1px solid #334155; }
 body.dark-mode .card { background-color: var(--card-bg); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
 body.dark-mode .modal-content { background-color: #1e293b; color: white; }
 body.dark-mode .low-stock { background-color: rgba(220, 38, 38, 0.2) !important; }
 
-/* Memaksa elemen background putih/terang jadi gelap */
+/* Force White/Light Backgrounds to Dark */
 body.dark-mode .bg-white, body.dark-mode .bg-light,
 body.dark-mode .card-header, body.dark-mode .card-footer.bg-white {
     background-color: var(--card-bg) !important; color: var(--text-main) !important; border-color: #334155 !important;
 }
 
-/* Memaksa font menjadi putih */
+/* FIX: Smart Restock (List Group) - Ubah jadi gelap & teks putih */
+body.dark-mode .list-group-item {
+    background-color: var(--card-bg) !important;
+    color: #fff !important;
+    border-color: #334155 !important;
+}
+
+/* FIX: Tombol Scan Barcode (Outline Dark) jadi Putih */
+body.dark-mode .btn-outline-dark {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+body.dark-mode .btn-outline-dark:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Force Fonts to White */
 body.dark-mode .text-dark,
 body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
 body.dark-mode strong, body.dark-mode b, body.dark-mode .card-title,
@@ -179,19 +211,19 @@ body.dark-mode label, body.dark-mode span, body.dark-mode small {
 body.dark-mode .text-muted, body.dark-mode p { color: #e2e8f0 !important; opacity: 1 !important; }
 body.dark-mode .text-primary { color: #60a5fa !important; }
 
-/* Form & Inputs */
+/* B. Forms */
 body.dark-mode .form-control, body.dark-mode .form-select {
     background-color: #334155 !important; border-color: #475569 !important; color: #fff !important;
 }
 body.dark-mode .form-control:focus { background-color: #1e293b; border-color: var(--primary-color); }
 
-/* POS Images in Dark Mode */
+/* C. Images */
 body.dark-mode #posProductGrid img,
 body.dark-mode #posProductGrid .card-img-top {
     background-color: #334155 !important; border-color: #475569 !important;
 }
 
-/* Tables & DataTables */
+/* D. Tables */
 body.dark-mode .table { color: var(--text-main); --bs-table-bg: transparent; border-color: #334155; }
 body.dark-mode .table thead th { background-color: #0f172a; border-color: #334155; color: #cbd5e1; }
 body.dark-mode table.dataTable tbody tr,
@@ -206,7 +238,7 @@ body.dark-mode .dataTables_wrapper select, body.dark-mode .dataTables_wrapper in
 body.dark-mode .page-link { background-color: #1e293b; border-color: #475569; color: #fff; }
 body.dark-mode .page-item.disabled .page-link { background-color: #334155 !important; border-color: #475569 !important; color: #94a3b8 !important; }
 
-/* Accordion (Bantuan) */
+/* E. Accordion */
 body.dark-mode .accordion-item, body.dark-mode .accordion-header, body.dark-mode .accordion-button {
     background-color: var(--card-bg) !important; color: #fff !important; border-color: #334155 !important; box-shadow: none !important;
 }
@@ -215,7 +247,7 @@ body.dark-mode .accordion-button.collapsed { color: #e2e8f0 !important; }
 body.dark-mode .accordion-button::after { filter: invert(1) grayscale(100%) brightness(200%) !important; }
 body.dark-mode .accordion-body { background-color: #0f172a !important; color: #e2e8f0 !important; border-top: 1px solid #334155 !important; }
 
-/* Mode Switch Button */
+/* F. Mode Switch Button */
 body.dark-mode button[onclick="toggleDarkMode()"]::after { content: "☀️ Terang"; }
 body.dark-mode button[onclick="toggleDarkMode()"] {
     background: rgba(255, 255, 255, 0.15); border-color: #fbbf24; color: #fbbf24 !important;
@@ -223,7 +255,7 @@ body.dark-mode button[onclick="toggleDarkMode()"] {
 }
 body.dark-mode button[onclick="toggleDarkMode()"]:hover { background: #fbbf24; color: #000 !important; }
 
-/* PRINT STYLES */
+/* 6. PRINT STYLES */
 @media print {
     body * { visibility: hidden; }
     #printArea, #printArea * { visibility: visible; }
