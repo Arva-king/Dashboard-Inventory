@@ -1,4 +1,4 @@
-/* style.css - TokoMajoo */
+/* style.css - TokoMajoo*/
 
 /* IMPORT & VARIABLES */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -27,25 +27,29 @@ body {
 
 /* Utilities */
 .cursor-pointer { cursor: pointer; }
-.hidden { display: none !important; }
+.hidden { display: none !important; } /* Wajib important karena utility */
 .img-preview-table { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
-/* COMPONENTS */
 
 /* Navbar */
-.navbar {
-    background: var(--primary-gradient) !important;
+nav.navbar {
+    background: var(--primary-gradient); 
     box-shadow: 0 4px 20px rgba(67, 97, 238, 0.3);
     padding: 1rem 0;
-    margin-bottom: 2rem !important;
+    margin-bottom: 2rem;
 }
+
+.navbar.bg-primary {
+    background-color: transparent !important; 
+    background: var(--primary-gradient) !important;
+}
+
 .navbar-brand { font-weight: 700; letter-spacing: 0.5px; font-size: 1.5rem; }
 .nav-link { font-weight: 500; transition: opacity 0.2s; }
 .nav-link:hover { opacity: 0.8; }
 .nav-link.active { font-weight: 700; border-bottom: 2px solid rgba(255,255,255,0.5); }
-.bg-primary { background: var(--primary-gradient) !important; }
 
-/* Cards (Hover Dikurangi Dari Sebelumnya) */
+/* Cards */
 .card {
     background-color: var(--card-bg);
     border: none;
@@ -72,7 +76,7 @@ body {
     background-color: #fff; border-color: var(--primary-color); box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
 }
 
-/* POS Product Grid (Hover Hanya Aktif Di Sini) */
+/* POS Product Grid */
 #posProductGrid .card { 
     padding: 10px; 
     border: 1px solid transparent; 
@@ -84,20 +88,19 @@ body {
     box-shadow: var(--shadow-hover);
 }
 
-/* Gambar Produk POS */
 #posProductGrid img, 
 #posProductGrid .card-img-top {
     width: 100% !important;
     height: 150px !important;       
     object-fit: contain !important; 
-    background-color: #fff !important;
-    padding: 8px !important;
-    border-radius: 12px !important;
-    margin-bottom: 10px !important;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 12px;
+    margin-bottom: 10px;
     border: 1px solid #e0e0e0;
 }
 
-/* Keranjang */
+/* Table Keranjang */
 .table thead th { background-color: #f8fafc; border-bottom: 2px solid #e2e8f0; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
 .table td { vertical-align: middle; }
 
@@ -106,7 +109,7 @@ body {
 .modal-header { background: var(--primary-gradient); color: white; border-bottom: none; }
 .modal-backdrop.show { opacity: 0.7; backdrop-filter: blur(5px); }
 
-/* DataTables Styling */
+/* DataTables Styling*/
 .dataTables_wrapper .dataTables_filter input { border-radius: 20px; padding: 5px 15px; border: 1px solid #ddd; }
 .page-item.active .page-link { background-color: var(--primary-color); border-color: var(--primary-color); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; margin: 0 2px; }
 .page-link { border: none; color: var(--text-muted); }
@@ -115,26 +118,10 @@ body {
 
 /* Voice Button */
 .voice-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    background: var(--primary-gradient);
-    color: white;
-    border: none;
-    box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
-    z-index: 1050;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
+    position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; border-radius: 50%;
+    background: var(--primary-gradient); color: white; border: none; box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+    z-index: 1050; display: flex; align-items: center; justify-content: center; font-size: 28px;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    -webkit-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    -moz-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    -ms-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    -o-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .voice-btn:hover { transform: scale(1.1) rotate(15deg); }
 .voice-btn.listening { background: linear-gradient(135deg, #ef233c 0%, #d90429 100%); animation: pulse-ring 1.5s infinite; }
@@ -159,17 +146,15 @@ body {
 }
 @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
-/* Paksa Popup Alert muncul DI DEPAN Lock Screen */
-.swal2-container {
-    z-index: 10000 !important;
-}
+/* Fix Alert*/
+.swal2-container { z-index: 10000 !important; }
 
 /* Leaflet & Scanner */
 #map, #reader { border-radius: var(--border-radius); border: 4px solid white; box-shadow: var(--shadow-soft); }
 #map { height: 400px; width: 100%; }
 #reader { overflow: hidden; }
 
-/* Tombol Mode Switch (Matahari/Bulan) */
+/* Tombol Mode Switch */
 button[onclick="toggleDarkMode()"] {
     font-size: 0 !important; position: relative; width: 110px; height: 38px;
     display: inline-flex !important; align-items: center; justify-content: center; overflow: hidden;
@@ -179,7 +164,7 @@ button[onclick="toggleDarkMode()"]::after {
     left: 50%; top: 50%; transform: translate(-50%, -50%); width: 100%; text-align: center;
 }
 
-/* DARK MODE CONFIGURATION */
+/* DARK MODE */
 body.dark-mode {
     --bg-color: #0f172a;
     --card-bg: #1e293b;
@@ -188,80 +173,106 @@ body.dark-mode {
     --border-color: #334155;
 }
 
-/* Global Theme Overrides */
-body.dark-mode .navbar { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important; border-bottom: 1px solid #334155; }
+/* Global Overrides*/
+body.dark-mode .navbar { 
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important; /* Override inline */
+    border-bottom: 1px solid #334155; 
+}
 body.dark-mode .card { background-color: var(--card-bg); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
 body.dark-mode .modal-content { background-color: #1e293b; color: white; }
 body.dark-mode .low-stock { background-color: rgba(220, 38, 38, 0.2) !important; }
 
-/* Force White/Light Backgrounds to Dark */
-body.dark-mode .bg-white, body.dark-mode .bg-light,
-body.dark-mode .card-header, body.dark-mode .card-footer.bg-white {
-    background-color: var(--card-bg) !important; color: var(--text-main) !important; border-color: #334155 !important;
-}
-
-/* Smart Restock */
-body.dark-mode .list-group-item {
-    background-color: var(--card-bg) !important;
-    color: #fff !important;
+body.dark-mode .bg-white, 
+body.dark-mode .bg-light,
+body.dark-mode .card-header.bg-white, 
+body.dark-mode .card-footer.bg-white {
+    background-color: var(--card-bg) !important; 
+    color: var(--text-main) !important; 
     border-color: #334155 !important;
 }
 
-/* Tombol Scan Barcode jadi Putih */
-body.dark-mode .btn-outline-dark {
-    color: #ffffff !important;
-    border-color: #ffffff !important;
-}
-body.dark-mode .btn-outline-dark:hover {
-    background-color: #ffffff !important;
-    color: #000000 !important;
+body.dark-mode .list-group-item {
+    background-color: var(--card-bg); 
+    color: #fff;
+    border-color: #334155;
 }
 
-/* Force Fonts to White */
+/* FIX TOMBOL SCAN  */
+body.dark-mode .btn-outline-dark {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+body.dark-mode .btn-outline-dark:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Font Colors */
 body.dark-mode .text-dark,
-body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
-body.dark-mode strong, body.dark-mode b, body.dark-mode .card-title,
+body.dark-mode .text-muted,
 body.dark-mode label, body.dark-mode span, body.dark-mode small {
     color: #ffffff !important;
 }
-body.dark-mode .text-muted, body.dark-mode p { color: #e2e8f0 !important; opacity: 1 !important; }
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, 
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
+body.dark-mode .card-title,
+body.dark-mode strong, body.dark-mode b {
+    color: #ffffff;
+}
+
+body.dark-mode p { color: #e2e8f0; }
 body.dark-mode .text-primary { color: #60a5fa !important; }
 
 /* Forms */
 body.dark-mode .form-control, body.dark-mode .form-select {
-    background-color: #334155 !important; border-color: #475569 !important; color: #fff !important;
+    background-color: #334155; border-color: #475569; color: #fff;
 }
 body.dark-mode .form-control:focus { background-color: #1e293b; border-color: var(--primary-color); }
 
-/* Images */
+/* Images Dark Mode */
 body.dark-mode #posProductGrid img,
 body.dark-mode #posProductGrid .card-img-top {
-    background-color: #334155 !important; border-color: #475569 !important;
+    background-color: #334155; border-color: #475569;
 }
 
-/* Tables */
+/* Tables & DataTables */
 body.dark-mode .table { color: var(--text-main); --bs-table-bg: transparent; border-color: #334155; }
 body.dark-mode .table thead th { background-color: #0f172a; border-color: #334155; color: #cbd5e1; }
+
 body.dark-mode table.dataTable tbody tr,
-body.dark-mode table.dataTable tbody td { background-color: transparent !important; color: #fff !important; border-color: #334155 !important; }
-body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) > * { background-color: rgba(255, 255, 255, 0.05) !important; color: #fff !important; }
+body.dark-mode table.dataTable tbody td { 
+    background-color: transparent !important; 
+    color: #fff !important; 
+    border-color: #334155 !important; 
+}
+body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) > * { 
+    background-color: rgba(255, 255, 255, 0.05); 
+    color: #fff; 
+}
 
 /* DataTables Controls */
-body.dark-mode .dataTables_wrapper, body.dark-mode .dataTables_info, body.dark-mode .dataTables_paginate { color: #fff !important; }
-body.dark-mode .dataTables_wrapper select, body.dark-mode .dataTables_wrapper input {
-    background-color: #334155 !important; border: 1px solid #475569 !important; color: #fff !important;
+body.dark-mode .dataTables_wrapper, 
+body.dark-mode .dataTables_info, 
+body.dark-mode .dataTables_paginate { color: #fff; }
+
+body.dark-mode .dataTables_wrapper select, 
+body.dark-mode .dataTables_wrapper input {
+    background-color: #334155; border: 1px solid #475569; color: #fff;
 }
 body.dark-mode .page-link { background-color: #1e293b; border-color: #475569; color: #fff; }
-body.dark-mode .page-item.disabled .page-link { background-color: #334155 !important; border-color: #475569 !important; color: #94a3b8 !important; }
+body.dark-mode .page-item.disabled .page-link { background-color: #334155; border-color: #475569; color: #94a3b8; }
 
-/* Accordion */
-body.dark-mode .accordion-item, body.dark-mode .accordion-header, body.dark-mode .accordion-button {
-    background-color: var(--card-bg) !important; color: #fff !important; border-color: #334155 !important; box-shadow: none !important;
+/* Bantuan */
+body.dark-mode .accordion-item, 
+body.dark-mode .accordion-header, 
+body.dark-mode .accordion-button {
+    background-color: var(--card-bg); color: #fff; border-color: #334155; box-shadow: none;
 }
-body.dark-mode .accordion-button:not(.collapsed) { background-color: var(--primary-color) !important; }
-body.dark-mode .accordion-button.collapsed { color: #e2e8f0 !important; }
-body.dark-mode .accordion-button::after { filter: invert(1) grayscale(100%) brightness(200%) !important; }
-body.dark-mode .accordion-body { background-color: #0f172a !important; color: #e2e8f0 !important; border-top: 1px solid #334155 !important; }
+body.dark-mode .accordion-button:not(.collapsed) { background-color: var(--primary-color) !important; /* Override bootstrap active state */ }
+body.dark-mode .accordion-button.collapsed { color: #e2e8f0; }
+body.dark-mode .accordion-button::after { filter: invert(1) grayscale(100%) brightness(200%); }
+body.dark-mode .accordion-body { background-color: #0f172a; color: #e2e8f0; border-top: 1px solid #334155; }
 
 /* Mode Switch Button */
 body.dark-mode button[onclick="toggleDarkMode()"]::after { content: "☀️ Terang"; }
