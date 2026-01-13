@@ -1,4 +1,5 @@
-
+## Muhammad Farrel Arvarizky [240040102] - Arva-king
+## Muhamad Saddam Basudewa [240040124] - Xaniero
 # 🛒 Dashboard Inventory - Modern POS & Inventory System
 
 **Dashboard Inventory** adalah aplikasi web berbasis *Client-Side* (Tanpa Backend) yang dirancang untuk membantu UMKM mengelola stok barang dan kasir (Point of Sale) dengan fitur-fitur canggih layaknya aplikasi enterprise.
